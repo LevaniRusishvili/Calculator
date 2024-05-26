@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1716562840 source:d:\codeblocks\main_project_quantum_levani_rusishvili_001\main_project_quantum_levani_rusishvili_001\main.cpp
+	<windows.h>
+	<stdio.h>
+	<math.h>
+	"Resource.h"
+
+1716217959 d:\codeblocks\main_project_quantum_levani_rusishvili_001\main_project_quantum_levani_rusishvili_001\resource.h
+	"windows.h"
+
+1715509224 source:d:\codeblocks\main_project_quantum_levani_rusishvili_001\main_project_quantum_levani_rusishvili_001\resource.rc
+	"Resource.h"
+

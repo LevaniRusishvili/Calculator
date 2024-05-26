@@ -1,0 +1,18 @@
+#include "Resource.h"
+
+IDM_MAIN_MENU MENU
+BEGIN
+	POPUP "File"
+ BEGIN
+	MENUITEM "Open",102
+	MENUITEM "Exit",101
+END
+POPUP "Stuff"
+BEGIN
+	MENUITEM "Show Popup Menu",104
+END
+POPUP "Help"
+BEGIN
+	MENUITEM "About",103
+END
+END

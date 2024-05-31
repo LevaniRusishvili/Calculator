@@ -13,23 +13,58 @@
 #include <stdio.h>
 #include <math.h>
 #include "Resource.h"
+#include "math.h"
 
 int k=0;
 int sz=100;
-unsigned int Counter = 0;   //Buffer index
-char *Buf=(char*)malloc(sz);
+unsigned int Counter = 0;        //Buffer index
+
 int Var=0;
-
+int Var2=0;
 int Op1=0;
+int Op2=0;
+int MyInt=0;
+int EqualVar=0;
+int tempCount=0;
+int digitCount=0;
+int EqualClicked=0;
 
+int Buf1Length = 0;
+int Op1Length =0;               // Calculate the number of digits in Op2
+int validNumber1=0;
+int digitOp1=0;
+int digitBuf1=0;
+int Buf2Length = 0;
+int Op2Length =0;               // Calculate the number of digits in Op2
+int validNumber2=0;
+int digitOp2=0;
+int digitBuf2=0;
+
+
+int Add_Res=0;
+int Sub_Res=0;
+int Mul_Res=0;
+int Div_Res=0;
+
+char *Buf=NULL;
+char *Buf1=NULL;
+char *Buf2=NULL;
+
+void Operand1(char *Buf,int Counter);
+void Operand2(char *Buf,int tempCount,int Counter);
+int Add(int Op1, int Op2);
+int Sub(int Op1, int Op2);
+int Mul(int Op1, int Op2);
+void Div(int Op1, int Op2);
 //---------------------------------------------------------------------------------------------------------------
 LRESULT CALLBACK MainWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam);                                                                                                                                                   //LRESULT aris long pointer tipis, hWND aris handle tu romel fanjarazea laparaki  wparam word param lparam lparam, mara orive 32 bitia 32 bitianshi
 LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam);
+
 //---------------------------------------------------------------------------------------------------------------
 //===============================================================================================================
+//!!!!!!!!!!!!!!!!!!!!!AMIS GARDA  YVELAFERI GADATANILIA FILEBSHI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevINstance, LPSTR lpszArguments, int nCmdShow)
 {
-
 
 //--------------Main_Window-------------------------------------------------------------
     WNDCLASS wndClass;
@@ -116,7 +151,6 @@ char Mychar;
 }
 
 //===========================END_WINAPI_WINMAIN============================================================
-
 
 
 
@@ -275,6 +309,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lPar
 LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 
+
 //-----------------------------------------------------------------------------------------
   //  printf("Message Child Procedure: %u\n", Message);
     static int* a=0;
@@ -304,12 +339,15 @@ LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lPa
     static HWND hStaticControl18= NULL;
     static HWND hStaticControl19= NULL;
     static HWND hStaticControl20= NULL;
+
+
 //----------------------------------------------------------------------------------------
 
     switch (Message)
     {
 //----------------------------------------------------------------------------
 case WM_CREATE:
+
     a=(int*)(((LPCREATESTRUCTA)lParam)->lpCreateParams);
     if(a!=NULL)
     {
@@ -569,7 +607,20 @@ case WM_CREATE:
 
 //---------------------------------------------------------------------------------------------------
  case WM_COMMAND:
-
+     if(Var==0)     //shemodis marto ertxel
+     {
+        Buf=(char*)malloc(sz);
+        memset(Buf, '\0', sz);
+        Buf[sz+1]='\0';
+        Buf1=(char*)malloc(Counter);
+        memset(Buf1, '\0', Counter);
+        Buf1[Counter+1]='\0';
+        Buf2=(char*)malloc(Counter-tempCount);
+        memset(Buf2, '\0', Counter-tempCount);
+        Buf2[(Counter-tempCount)+1]='\0';
+     }
+  Var=1;
+  Var2++;   //es cvladi damchirda null terminaciis sworad gamosayeneblad
    printf("WM_COMMAND message received\n");
 
         switch (LOWORD(wParam))
@@ -578,6 +629,7 @@ case WM_CREATE:
              case 120:
             printf("1 button is clicked ");
             Buf[Counter]='1';
+
             break;
 
 
@@ -641,32 +693,39 @@ case WM_CREATE:
             break;
 
                case 132:
-                   k=1;
-            printf("+ button is clicked ");
+            k = 1;
+            printf("+ button is clicked\n");
             Buf[Counter]='+';
-            break;
+            Operand1(Buf,Counter);
+
+      break;
 
              case 133:
                  k=2;
             printf("- button is clicked ");
             Buf[Counter]='-';
+               Operand1(Buf,Counter);
             break;
 
               case 134:
                   k=3;
             printf("x button is clicked ");
             Buf[Counter]='x';
+               Operand1(Buf,Counter);
             break;
 
              case 135:
                  k=4;
             printf("/ button is clicked ");
+
             Buf[Counter]='/';
+               Operand1(Buf,Counter);
             break;
 
               case 136:
             printf("= button is clicked ");
             Buf[Counter]='=';
+           Operand2(Buf,tempCount,Counter);
             break;
 
               case 137:
@@ -685,12 +744,58 @@ case WM_CREATE:
 
         }
 
- Counter++;
- Buf[Counter]='\0';
 
         printf("\nCounter = %d\n",Counter);
-        printf("Buffer :%s\n",Buf);
 
+        printf("Buffer char 1:%c\n",Buf[0]);
+        printf("Buffer char 2:%c\n",Buf[1]);
+        printf("Buffer char 3:%c\n",Buf[2]);
+        printf("Buffer char 4:%c\n",Buf[3]);
+        printf("Buffer char 5:%c\n",Buf[4]);
+
+        printf("Buffer String : %s\n",Buf);
+
+
+//---------------------------------------------------------------------------
+
+                if(EqualClicked==1)
+
+                 {
+                    if (k==1 || k==2 || k==3 || k==4)
+                    {
+                    Counter++;
+                    Buf[Counter]='\0';
+                        switch(k)
+                        {
+                        case Addition:
+                            Add_Res = Add(Op1, Op2);
+                            printf("Addition Result: %d\n", Add_Res);
+                            break;
+                        case Subtraction:
+                            Sub_Res = Sub(Op1, Op2);
+                            printf("Subtraction Result: %d\n", Sub_Res);
+                            break;
+                        case Multiplication:
+                             Mul_Res = Mul(Op1, Op2);
+                            printf("Multiplication Result: %d\n", Mul_Res);
+                            break;
+                        case Division:
+                            Div(Op1,Op2);
+                            break;
+                        }
+                        memset(Buf,0,sz);
+                    }
+
+                }
+                else
+                    {
+                        if(Var2>1)
+                        {
+                             Counter++;
+                             Buf[Counter]='\0';
+                        }
+                    }
+//---------------------------------------------------------------------------
         return 0;
         break;
     }
@@ -705,110 +810,121 @@ case WM_CREATE:
 
 
 
+//------Function_Is_Called_When_'+'_'-'_x'_'-'_Is_Clicked-----------------------------------------------------
+void Operand1(char *Buf, int Counter)
+{
+   for(int i =0; i<Counter;i++)
+      {
+          Buf1[i]=Buf[i];
+      }
+    Buf1[Counter]='\0';
+    printf("Buffer 1 : %s\n",Buf1);
+    Op1=atoi(Buf1);
+  tempCount=strlen(Buf1)+1;      //for the index where + was clicked
+
+  printf("Operand 1: %d",Op1);
+
+
+   Buf1Length = strlen(Buf1);
+ Op1Length = floor(log10(abs(Op1))) + 1; // Calculate the number of digits in Op2
+
+// Check if the lengths match
+if (Buf1Length != Op1Length)
+    {
+    printf("Error: Number exceeds maximum value of 2147483647\n");
+    }
+else
+    {
+    // Compare each digit of Buf2 with Op2
+     validNumber1 = 1; // Assume the number is valid initially
+
+    for (int i = 0; i < Buf1Length; i++)
+        {
+        // Convert Buf2[i] to its decimal value
+         digitBuf1 = Buf1[i] - '0'; // Subtract '0'==48 to convert from ASCII to decimal
+
+        // Get the corresponding digit of Op2
+         digitOp1 = (Op1 / (int)pow(10, Buf1Length - i - 1)) % 10;
+
+        // Compare the digits
+        if (digitBuf1 != digitOp1) {
+            validNumber1 = 0;
+
+        }
+    }
+
+    if (validNumber1 && Op1 >= 0)
+        {
+        printf("Operand 1: %d\n", Op1);
+        }
+
+     else
+    {
+        printf("Error: Number exceeds maximum value of 2147483647\n");
+    }
+}
+free(Buf1);
+}
+//---------------------------------------------------------------------------------------------
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-            switch (k)
+//-----------Function_Is_Called_When_'='_is_Clicked--------------------------------------------
+void Operand2(char *Buf, int tempCount, int Count)
+{
+    EqualClicked=1;
+ printf("tempCount : %d\n",tempCount);
+            printf("Counter-tempCount : %d\n",Counter-tempCount);
+            for(int i =0; i<(Counter-tempCount); i++)
             {
-            case Addition:
-            {
-                char Add_buf[50] = "";
-            int Add_Res = Add(Op1, Op2);
-            sprintf(Add_buf, "%d", Add_Res);
-            drawText(dc, 650, 260, Add_buf); // Draw the tex
-                printf("Addition Result: %d\n", Add_Res);
-                break;
+               Buf2[i]=Buf[tempCount+i];
             }
-            case Subtraction:
-            {
-                char Sub_buf[50] = "";
-                int Sub_Res = Sub(Op1, Op2);
-                sprintf(Sub_buf, "%d", Sub_Res);
-                drawText(dc, 650, 260, Sub_buf); // Draw the text
-                printf("Subtraction Result: %d\n", Sub_Res);
-                break;
-            }
-            case Multiplication:
-            {
-                char Mul_buf[50] = "";
-                int Mul_Res = Mul(Op1, Op2);
-                sprintf(Mul_buf, "%d", Mul_Res);
-                drawText(dc, 650, 260, Mul_buf); // Draw the text
-                printf("Multiplication Result: %d\n", Mul_Res);
-                break;
-            }
+            Buf2[Counter-tempCount]='\0';
+            printf("Buffer 2 : %s\n",Buf2);
 
-            case Division:
-            {
-                Div(Op1, Op2);
-                break;
-            }
+            Op2=atoi(Buf2);
 
+// Calculate the length of Buf2 and Op2
+ Buf2Length = strlen(Buf2);
+ Op2Length = floor(log10(abs(Op2))) + 1; // Calculate the number of digits in Op2
 
-            case BinaryToDecimal:
-            {
-                //    BinToDec(Op);
-                break;
-            }
+// Check if the lengths match
+if (Buf2Length != Op2Length)
+    {
+    printf("Error: Number exceeds maximum value of 2147483647\n");
+}
+else
+    {
+    // Compare each digit of Buf2 with Op2
+     validNumber2 = 1; // Assume the number is valid initially
 
+    for (int i = 0; i < Buf2Length; i++)
+    {
+        // Convert Buf2[i] to its decimal value
+         digitBuf2 = Buf2[i] - '0'; // Subtract '0' to convert from ASCII to decimal
 
+        // Get the corresponding digit of Op2
+         digitOp2 = (Op2 / (int)pow(10, Buf2Length - i - 1)) % 10;
 
-            }
+        // Compare the digits
+        if (digitBuf2 != digitOp2) {
+            validNumber2 = 0;
 
-*/
+        }
+    }
 
-
-
-
-
-
-//-------------------------------------------------------------------
-
+    if (validNumber2 && Op2 >= 0) {
+        printf("Operand 2: %d\n", Op2);
+    } else {
+        printf("Error: Number exceeds maximum value of 2147483647\n");
+    }
+  }
+  free(Buf2);
+}
+//--------------------------------------------------------------------------------------------------
 
 
 
-
-
-/*
 
 int Add(int x, int y)
 {
@@ -830,16 +946,16 @@ void Div(int x, int y)
 
     if (y == 0)
     {
-        printf("Cannot Divide By Zero");
-
+        printf("Error, Cannot Divide By Zero \n");
     }
     else
     {
         int result = x / y;
         int Reminder = x % y;
-        printf("Result is : %d ", result);
-        printf("\n Reminder is : %d", Reminder);
+        printf("Result is : %d\n ", result);
+        printf("\n Reminder is : %d\n", Reminder);
     }
+
 }
 
 void BinToDec(char x[40])
@@ -877,7 +993,7 @@ void BinToDec(char x[40])
     }
 
 }
-*/
+
 
 
 

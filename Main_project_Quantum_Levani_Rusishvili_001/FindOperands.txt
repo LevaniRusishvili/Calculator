@@ -1,0 +1,114 @@
+
+
+//------Function_Is_Called_When_'+'_'-'_x'_'/'_Is_Clicked-----------------------------------------------------
+void Operand1(char *Buf, int Counter)
+{
+   for(int i =0; i<Counter;i++)
+      {
+          Buf1[i]=Buf[i];
+      }
+    Buf1[Counter]='\0';
+    printf("Buffer 1 : %s\n",Buf1);
+    Op1=atoi(Buf1);
+  tempCount=strlen(Buf1)+1;      //for the index where + was clicked
+
+  printf("Operand 1: %d",Op1);
+
+
+   Buf1Length = strlen(Buf1);
+ Op1Length = floor(log10(abs(Op1))) + 1; // Calculate the number of digits in Op2
+
+// Check if the lengths match
+if (Buf1Length != Op1Length)
+    {
+    printf("Error: Number exceeds maximum value of 2147483647\n");
+    }
+else
+    {
+    // Compare each digit of Buf2 with Op2
+     validNumber1 = 1; // Assume the number is valid initially
+
+    for (int i = 0; i < Buf1Length; i++)
+        {
+        // Convert Buf2[i] to its decimal value
+         digitBuf1 = Buf1[i] - '0'; // Subtract '0'==48 to convert from ASCII to decimal
+
+        // Get the corresponding digit of Op2
+         digitOp1 = (Op1 / (int)pow(10, Buf1Length - i - 1)) % 10;
+
+        // Compare the digits
+        if (digitBuf1 != digitOp1) {
+            validNumber1 = 0;
+
+        }
+    }
+
+    if (validNumber1 && Op1 >= 0)
+        {
+        printf("Operand 1: %d\n", Op1);
+        }
+
+     else
+    {
+        printf("Error: Number exceeds maximum value of 2147483647\n");
+    }
+}
+free(Buf1);
+}
+//---------------------------------------------------------------------------------------------
+
+
+
+//-----------Function_Is_Called_When_'='_is_Clicked--------------------------------------------
+void Operand2(char *Buf, int tempCount, int Count)
+{
+    EqualClicked=1;
+ printf("tempCount : %d\n",tempCount);
+            printf("Counter-tempCount : %d\n",Counter-tempCount);
+            for(int i =0; i<(Counter-tempCount); i++)
+            {
+               Buf2[i]=Buf[tempCount+i];
+            }
+            Buf2[Counter-tempCount]='\0';
+            printf("Buffer 2 : %s\n",Buf2);
+
+            Op2=atoi(Buf2);
+
+// Calculate the length of Buf2 and Op2
+ Buf2Length = strlen(Buf2);
+ Op2Length = floor(log10(abs(Op2))) + 1; // Calculate the number of digits in Op2
+
+// Check if the lengths match
+if (Buf2Length != Op2Length)
+    {
+    printf("Error: Number exceeds maximum value of 2147483647\n");
+}
+else
+    {
+    // Compare each digit of Buf2 with Op2
+     validNumber = 1; // Assume the number is valid initially
+
+    for (int i = 0; i < Buf2Length; i++)
+    {
+        // Convert Buf2[i] to its decimal value
+         digitBuf2 = Buf2[i] - '0'; // Subtract '0' to convert from ASCII to decimal
+
+        // Get the corresponding digit of Op2
+         digitOp2 = (Op2 / (int)pow(10, Buf2Length - i - 1)) % 10;
+
+        // Compare the digits
+        if (digitBuf2 != digitOp2) {
+            validNumber = 0;
+
+        }
+    }
+
+    if (validNumber && Op2 >= 0) {
+        printf("Operand 2: %d\n", Op2);
+    } else {
+        printf("Error: Number exceeds maximum value of 2147483647\n");
+    }
+  }
+free(Buf2);
+}
+//--------------------------------------------------------------------------------------------------

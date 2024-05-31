@@ -1,0 +1,31 @@
+int Add(int x, int y)
+{
+    return x + y;
+}
+
+int Sub(int x, int y)
+{
+    return x - y;
+}
+
+int Mul(int x, int y)
+{
+    return x * y;
+}
+
+void Div(int x, int y)
+{
+
+    if (y == 0)
+    {
+        printf("Error, Cannot Divide By Zero \n");
+    }
+    else
+    {
+        int result = x / y;
+        int Reminder = x % y;
+        printf("Result is : %d\n ", result);
+        printf("\n Reminder is : %d\n", Reminder);
+    }
+
+}

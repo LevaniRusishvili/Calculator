@@ -1,0 +1,45 @@
+
+int k=0;
+int sz=100;
+unsigned int Counter = 0;        //Buffer index
+
+int Var=0;
+int Var2=0;
+int Op1=0;
+int Op2=0;
+int MyInt=0;
+int EqualVar=0;
+int tempCount=0;
+int digitCount=0;
+int EqualClicked=0;
+
+int Buf1Length = 0;
+int Op1Length =0;               // Calculate the number of digits in Op2
+int validNumber1=0;
+int digitOp1=0;
+int digitBuf1=0;
+int Buf2Length = 0;
+int Op2Length =0;               // Calculate the number of digits in Op2
+int validNumber2=0;
+int digitOp2=0;
+int digitBuf2=0;
+
+
+int Add_Res=0;
+int Sub_Res=0;
+int Mul_Res=0;
+int Div_Res=0;
+
+char *Buf=NULL;
+char *Buf1=NULL;
+char *Buf2=NULL;
+
+void Operand1(char *Buf,int Counter);
+void Operand2(char *Buf,int tempCount,int Counter);
+int Add(int Op1, int Op2);
+int Sub(int Op1, int Op2);
+int Mul(int Op1, int Op2);
+void Div(int Op1, int Op2);
+//---------------------------------------------------------------------------------------------------------------
+LRESULT CALLBACK MainWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam);                                                                                                                                                   //LRESULT aris long pointer tipis, hWND aris handle tu romel fanjarazea laparaki  wparam word param lparam lparam, mara orive 32 bitia 32 bitianshi
+LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam);

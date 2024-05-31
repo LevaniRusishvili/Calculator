@@ -1,0 +1,143 @@
+
+LRESULT CALLBACK MainWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)                                                //argumentebis gadacema xdeba marjvnidan marcxniv, anu stackshi jer chaiwereba lparam, mere wparam, mere mesiji, mere hWnd
+{
+
+//--------------------------------------------------------------------------------------------------------
+  //  printf("Message Parent Procedure: %u\n", Message);
+    static HMENU hMainMenu;
+    static HMENU hSubMenu;
+    static HWND hChildWindow1;                                                                                                     //Handle of childwindow1
+    static HWND hChildWindow2;                                                                                                     //Handle of childwindow2
+
+    int intHorizontalPosition;
+    int intVerticalPosition;
+    int intMessageReturnValue;
+
+    static int d = 5;
+    static int e = 4;
+
+//---------------------------------------------------------------------------------------------------------
+
+    switch (Message)
+    {
+//---------------------------------------------------------------------------------------------------------
+    case WM_CREATE:
+        hMainMenu = GetMenu(hWnd);
+        hSubMenu = GetSubMenu(hMainMenu, 0);
+
+        hChildWindow1 = CreateWindow(TEXT("MY_CLASS_WINDOW_2"),                                                                     //window for buttons
+                                     TEXT("My Program - Mainc Window"),
+                                     WS_CHILDWINDOW | WS_VISIBLE,
+                                     10,
+                                     10,
+                                     365,
+                                     50,
+                                     hWnd,
+                                     NULL,
+                                     GetModuleHandle(NULL),
+                                     NULL);
+//------------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+        hChildWindow2 = CreateWindow(TEXT("MY_CLASS_WINDOW_2"),                                                                     //window for result
+                                     TEXT("My Program - Main Window"),
+                                     WS_CHILDWINDOW | WS_VISIBLE,
+                                     10,
+                                     70,
+                                     365,
+                                     265,
+                                     hWnd,
+                                     NULL,
+                                     GetModuleHandle(NULL),
+                                     &e);
+//-----------------------------------------------------------------------
+        return 0;
+        break;
+
+//-----------------------------------------------------------------------------------------------------------
+ case WM_COMMAND:
+   //  printf("WM_COMMAND message received\n");
+        switch (LOWORD(wParam))
+        {
+        case 101:
+            printf("exit button is clicked ");
+            break;
+
+        }
+//-----------------------------------------------------------------------------------------------------------
+        return 0;
+        break;
+
+//-----------------------------------------------------------------------------------------------------------
+    case WM_CONTEXTMENU:
+        intHorizontalPosition = LOWORD(lParam);
+        intVerticalPosition = HIWORD(lParam);
+        TrackPopupMenu(hSubMenu, TPM_LEFTALIGN, intHorizontalPosition, intVerticalPosition, 0, hWnd, NULL);
+        return 0;
+        break;
+//-----------------------------------------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------------------------------------
+    case WM_CLOSE:
+        intMessageReturnValue=MessageBox(hWnd,TEXT("Are you sure you want to exit the \napplication?"),TEXT("Information..."), MB_YESNO | MB_ICONQUESTION);
+        if (intMessageReturnValue == IDYES)
+        {
+            DestroyWindow(hWnd);
+        }
+        return 0;
+        break;
+//-----------------------------------------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------------------------------------
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        return 0;
+        break;
+//-----------------------------------------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------------------------------------
+    case WM_SETCURSOR:
+        if (((HWND)wParam) == hChildWindow1)                                                                                             //tu childwindowzea kursori
+        {
+      //      printf("====Child Window===\n");
+       //     SetCursor(LoadCursor(NULL, IDC_HELP));                                                                                     //help daexatos kursors
+        }
+        else                                                                                                                             //tu arari childwindowze kursori
+        {
+            switch (LOWORD(lParam))
+            {
+            case HTRIGHT:                                                                                                               //right border tugvinda chavamatebt rastan mitanaze rogori gaxdes kursori
+                SetCursor(LoadCursor(NULL, IDC_HAND));                                                                                  //size west east
+                break;
+            case HTSYSMENU:                                                                                                             //help icon
+                SetCursor(LoadCursor(NULL, IDC_HELP));
+                break;
+            case HTCLOSE:                                                                                                               //close icon
+                SetCursor(LoadCursor(NULL, IDC_HAND));
+                break;
+            case HTMAXBUTTON:
+                SetCursor(LoadCursor(NULL, IDC_HAND));                                                                                  //cursor is hand shaped
+                break;
+            case HTMINBUTTON:
+                SetCursor(LoadCursor(NULL, IDC_HAND));
+                break;
+            default:
+                SetCursor(LoadCursor(NULL, IDC_ARROW));
+            }
+        }
+        return TRUE;
+//-----------------------------------------------------------------------------------------------------------
+    default:
+
+        return DefWindowProc(hWnd, Message, wParam, lParam);
+    }
+}
+
+//==================End_Callback_Main_Window_Procedure=============================================================================
+

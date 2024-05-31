@@ -1,0 +1,89 @@
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevINstance, LPSTR lpszArguments, int nCmdShow)
+{
+
+--------------Main_Window-------------------------------------------------------------
+    WNDCLASS wndClass;
+    wndClass.hInstance = hInstance;                                                                                                                                                                                                           this class belongs to this application
+    wndClass.lpszClassName = TEXT(MY_CLASS_WINDOW);                                                                                                                                                                   LONG POINTER TO STRING ZERO TERMINATED. THIS IS NAME OF THE CLASS
+    wndClass.lpszMenuName = MAKEINTRESOURCE(IDM_MAIN_MENU);                                                                                                                                        We have no menu for now
+    wndClass.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);                                                                                                                                          HBRUSH aris imistvis, rom rasac fuqncia abrunebs aris void tipis, HBRUSH gardaqmnis mas HBRUSH tipad
+    wndClass.cbClsExtra = 0;                                                                                                                                                                                        count byte class extra     extra memory, ramdeni adgilia darchenili WNDCLASS klasis struqturis boloshi ro gava, ramdeni byte sheudzlia kide ro gamoyos. am shemtxvevashi veubnebit ro 0, ro ar gamogviyos araferi damatebit.
+    wndClass.cbWndExtra = 0;                                                                                                                                                                                                extra memory aris esec, mara windowsis struqtura ro gava boloshi, mas shemdeg
+    wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);                                                                                                                                                                                  0 imitoa, ro chven gvinda sistemis iconi, da ara aplikaciis. meore parametria tu ra tipis iconi gvinda. aplikaciis
+    wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);                                                                                                                                                                    rogori kursori gvinda
+    wndClass.style = CS_HREDRAW  CS_VREDRAW;                                                                                                                                                                                       es nishnavs, rom tu fanjara gavwelet, wayves ferebi horizontaluradac da vertikaluradac, an tu vamodzravebt fanjaras, unda wayves ferebic
+    wndClass.lpfnWndProc = MainWndProc;
+    long pointer to a function
+--------------------------------------------------------------------------------------
+char Mychar;
+-----------------------Child_Window---------------------------------------------------
+    WNDCLASS wndClass2;
+    wndClass2.hInstance = hInstance;                                                                                                   this class belongs to this application
+    wndClass2.lpszClassName = TEXT(MY_CLASS_WINDOW_2);                                                                               LONG POINTER TO STRING ZERO TERMINATED. THIS IS NAME OF THE CLASS
+    wndClass2.lpszMenuName = NULL;                                                                                                     We have no menu for now
+    wndClass2.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);                                                                     HBRUSH aris imistvis, rom rasac fuqncia abrunebs aris void tipis, HBRUSH gardaqmnis mas HBRUSH tipad
+    wndClass2.cbClsExtra = 0;                                                                                                          count byte class extra     extra memory, ramdeni adgilia darchenili WNDCLASS klasis struqturis boloshi ro gava, ramdeni byte sheudzlia kide ro gamoyos. am shemtxvevashi veubnebit ro 0, ro ar gamogviyos araferi damatebit.
+    wndClass2.cbWndExtra = 0;                                                                                                          extra memory aris esec, mara windowsis struqtura ro gava boloshi, mas shemdeg
+    wndClass2.hIcon = NULL;                                                                                                            LoadIcon(NULL, IDI_APPLICATION);                                                                                   0 imitoa, ro chven gvinda sistemis iconi, da ara aplikaciis. meore parametria tu ra tipis iconi gvinda. aplikaciis
+    wndClass2.hCursor = LoadCursor(NULL, IDC_ARROW);                                                                                   rogori kursori gvinda
+    wndClass2.style = CS_HREDRAW  CS_VREDRAW;                                                                                         es nishnavs, rom tu fanjara gavwelet, wayves ferebi horizontaluradac da vertikaluradac, an tu vamodzravebt fanjaras, unda wayves ferebic
+    wndClass2.lpfnWndProc = ChildWndProc;
+-------------------------------------------------------------------------------------
+
+
+-----------------Register_Classes----------------------------------------------------
+    if (RegisterClass(&wndClass) == 0)                                                                                                 aq rasac vaketebt, aris is, rom ramshi vqmnit struqturas
+    {
+        MessageBox(NULL, TEXT(Error Registering Window Class), TEXT(Error), MB_OK  MB_ICONERROR);                                 in case anything bad happens, gives us an error
+    }
+
+    if (RegisterClass(&wndClass2) == 0)                                                                                                aq rasac vaketebt, aris is, rom ramshi vqmnit struqturas
+    {
+        MessageBox(NULL, TEXT(Error Registering Window Class 2), TEXT(Error), MB_OK  MB_ICONERROR);                               in case anything bad happens, gives us an error
+    }
+-------------------------------------------------------------------------------------
+
+
+------------------Create_Main_Window-------------------------------------------------
+    HWND hMainWindow = NULL;                                                                                                          integer value, ar aris pointeri, handle, igive key, misamarti, addressi
+    hMainWindow = CreateWindow(TEXT(MY_CLASS_WINDOW),                                                                               iqmneba window da aseve queue, sadac mesijebi iyreba
+                               TEXT(My Program - Main Window),                                                                                        title of our program
+                               WS_OVERLAPPEDWINDOW,
+                               200,                                                                                                   location x
+                               200,                                                                                                   location y
+                               400,                                                                                                   width
+                               400,                                                                                                   height
+                               NULL,
+                               NULL,                                                                                                  menu
+                               hInstance,                                                                                             handle of an instance
+                               NULL);
+-------------------------------------------------------------------------------------
+
+
+    ShowWindow(hMainWindow, nCmdShow);
+    UpdateWindow(hMainWindow);
+
+    MSG msg;
+    BOOL returnValue;
+
+
+ ---------------Get_Messages------------------------------------------------------------------------------                         int
+    while ((returnValue = GetMessage(&msg, NULL, 0, 0)) != 0)                                                                        tu 0--ia damtavrdes,, tu -1, daaeroros, tu metia 0 ze kargia mashin                                                                                        NULL aris handle fanjris, amshemtxvevashi 0 aris imitom, rom yvela fanjris mesijebi gvinda romelic chven aplikacias ekutvnis                                                                            0 aris quit message. anu tu quit message ar miviget, programa gaagrdzelebs mushaobs, tuarada, daabrunebs 0 s da shewydeba
+    {
+        if (returnValue == -1)
+        {
+            MessageBox(NULL, TEXT(Error creating application), TEXT(Error...), MB_OK  MB_ICONERROR);
+            return 0;
+        }
+        else
+        {
+            printf(Message Loop == Message %un, msg.message);
+            DispatchMessage(&msg);                                                                                                  dabrunebuli messages handle, anu addressi, tviton texti,  wparam da lparametri gadaecema wndprocs
+        }
+    }
+----------------------------------------------------------------------------------------------------------
+    return 0;
+}
+
+===========================END_WINAPI_WINMAIN============================================================
+

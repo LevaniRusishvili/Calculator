@@ -1,0 +1,12 @@
+//#define UNICODE
+#define Addition			1
+#define Subtraction			2
+#define Multiplication			3
+#define Division			4
+#define BinaryToDecimal			5
+
+#include <windows.h>
+#include <stdio.h>
+#include <math.h>
+#include "Resource.h"
+#include "math.h"

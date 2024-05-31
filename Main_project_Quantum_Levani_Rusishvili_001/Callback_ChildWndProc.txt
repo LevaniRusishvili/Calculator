@@ -1,0 +1,500 @@
+LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
+{
+
+
+//-----------------------------------------------------------------------------------------
+  //  printf("Message Child Procedure: %u\n", Message);
+    static int* a=0;
+    static int c=0;
+    static int i =0;
+    int b=0;
+
+    PAINTSTRUCT ps;
+    HDC hDC;
+    static HWND hStaticControl  = NULL;
+    static HWND hStaticControl2 = NULL;
+    static HWND hStaticControl3 = NULL;
+    static HWND hStaticControl4 = NULL;
+    static HWND hStaticControl5 = NULL;
+    static HWND hStaticControl6 = NULL;
+    static HWND hStaticControl7 = NULL;
+    static HWND hStaticControl8 = NULL;
+    static HWND hStaticControl9 = NULL;
+    static HWND hStaticControl10= NULL;
+    static HWND hStaticControl11= NULL;
+    static HWND hStaticControl12= NULL;
+    static HWND hStaticControl13= NULL;
+    static HWND hStaticControl14= NULL;
+    static HWND hStaticControl15= NULL;
+    static HWND hStaticControl16= NULL;
+    static HWND hStaticControl17= NULL;
+    static HWND hStaticControl18= NULL;
+    static HWND hStaticControl19= NULL;
+    static HWND hStaticControl20= NULL;
+
+
+//----------------------------------------------------------------------------------------
+
+    switch (Message)
+    {
+//----------------------------------------------------------------------------
+case WM_CREATE:
+
+    a=(int*)(((LPCREATESTRUCTA)lParam)->lpCreateParams);
+    if(a!=NULL)
+    {
+      c=*a;
+    }
+    if(c==4)
+    {
+
+        hStaticControl = CreateWindow(TEXT("BUTTON"),
+    TEXT("1"),
+    WS_CHILDWINDOW| WS_VISIBLE | BS_DEFPUSHBUTTON,
+    10,
+    11,
+    85,
+    35,
+    hWnd,
+    (HMENU)120,
+    GetModuleHandle(NULL),
+    NULL);
+
+
+
+    hStaticControl2 = CreateWindow(TEXT("BUTTON"),
+    TEXT("2"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    97,
+    11,
+    85,
+    35,
+    hWnd,
+    (HMENU)121,
+    GetModuleHandle(NULL),
+    NULL);
+
+
+
+    hStaticControl3 = CreateWindow(TEXT("BUTTON"),
+    TEXT("3"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    184,
+    11,
+    85,
+    35,
+    hWnd,
+    (HMENU)122,
+    GetModuleHandle(NULL),
+    NULL);
+
+
+    hStaticControl4 = CreateWindow(TEXT("BUTTON"),
+    TEXT("4"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    271,
+    11,
+    85,
+    35,
+    hWnd,
+    (HMENU)123,
+    GetModuleHandle(NULL),
+    NULL);
+
+
+    hStaticControl5 = CreateWindow(TEXT("BUTTON"),
+    TEXT("5"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    10,
+    50,
+    85,
+    35,
+    hWnd,
+    (HMENU)124,
+    GetModuleHandle(NULL),
+    NULL);
+
+       hStaticControl6 = CreateWindow(TEXT("BUTTON"),
+    TEXT("6"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    97,
+    50,
+    85,
+    35,
+    hWnd,
+    (HMENU)125,
+    GetModuleHandle(NULL),
+    NULL);
+
+    hStaticControl7 = CreateWindow(TEXT("BUTTON"),
+    TEXT("7"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    184,
+    50,
+    85,
+    35,
+    hWnd,
+    (HMENU)126,
+    GetModuleHandle(NULL),
+    NULL);
+
+    hStaticControl8 = CreateWindow(TEXT("BUTTON"),
+    TEXT("8"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    271,
+    50,
+    85,
+    35,
+    hWnd,
+    (HMENU)127,
+    GetModuleHandle(NULL),
+    NULL);
+
+     hStaticControl9 = CreateWindow(TEXT("BUTTON"),
+    TEXT("9"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    10,
+    88,
+    85,
+    35,
+    hWnd,
+    (HMENU)128,
+    GetModuleHandle(NULL),
+    NULL);
+
+     hStaticControl10 = CreateWindow(TEXT("BUTTON"),
+    TEXT("0"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    97,
+    88,
+    85,
+    35,
+    hWnd,
+    (HMENU)129,
+    GetModuleHandle(NULL),
+    NULL);
+
+     hStaticControl11 = CreateWindow(TEXT("BUTTON"),
+    TEXT("."),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    184,
+    88,
+    85,
+    35,
+    hWnd,
+    (HMENU)130,
+    GetModuleHandle(NULL),
+    NULL);
+
+    hStaticControl12 = CreateWindow(TEXT("BUTTON"),
+    TEXT("C"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    271,
+    88,
+    85,
+    35,
+    hWnd,
+    (HMENU)131,
+    GetModuleHandle(NULL),
+    NULL);
+
+         hStaticControl13 = CreateWindow(TEXT("BUTTON"),
+    TEXT("+"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    10,
+    127,
+    85,
+    35,
+    hWnd,
+    (HMENU)132,
+    GetModuleHandle(NULL),
+    NULL);
+
+     hStaticControl14 = CreateWindow(TEXT("BUTTON"),
+    TEXT("-"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    97,
+    127,
+    85,
+    35,
+    hWnd,
+    (HMENU)133,
+    GetModuleHandle(NULL),
+    NULL);
+
+     hStaticControl15 = CreateWindow(TEXT("BUTTON"),
+    TEXT("x"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    184,
+    127,
+    85,
+    35,
+    hWnd,
+    (HMENU)134,
+    GetModuleHandle(NULL),
+    NULL);
+
+    hStaticControl16 = CreateWindow(TEXT("BUTTON"),
+    TEXT("/"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    271,
+    127,
+    85,
+    35,
+    hWnd,
+    (HMENU)135,
+    GetModuleHandle(NULL),
+    NULL);
+
+
+          hStaticControl17 = CreateWindow(TEXT("BUTTON"),
+    TEXT("="),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    10,
+    165,
+    85,
+    35,
+    hWnd,
+    (HMENU)136,
+    GetModuleHandle(NULL),
+    NULL);
+
+     hStaticControl18 = CreateWindow(TEXT("BUTTON"),
+    TEXT("%"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    97,
+    165,
+    85,
+    35,
+    hWnd,
+    (HMENU)137,
+    GetModuleHandle(NULL),
+    NULL);
+
+     hStaticControl19 = CreateWindow(TEXT("BUTTON"),
+    TEXT("hex"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    184,
+    165,
+    85,
+    35,
+    hWnd,
+    (HMENU)138,
+    GetModuleHandle(NULL),
+    NULL);
+
+    hStaticControl20 = CreateWindow(TEXT("BUTTON"),
+    TEXT("bin"),
+    WS_CHILDWINDOW | WS_VISIBLE | BS_DEFPUSHBUTTON,
+    271,
+    165,
+    85,
+    35,
+    hWnd,
+    (HMENU)139,
+    GetModuleHandle(NULL),
+    NULL);
+//---------------------------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------------------------
+ case WM_COMMAND:
+     if(Var==0)     //shemodis marto ertxel
+     {
+        Buf=(char*)malloc(sz);
+        memset(Buf, '\0', sz);
+        Buf[sz+1]='\0';
+        Buf1=(char*)malloc(Counter);
+        memset(Buf1, '\0', Counter);
+        Buf1[Counter+1]='\0';
+        Buf2=(char*)malloc(Counter-tempCount);
+        memset(Buf2, '\0', Counter-tempCount);
+        Buf2[(Counter-tempCount)+1]='\0';
+     }
+  Var=1;
+  Var2++;   //es cvladi damchirda null terminaciis sworad gamosayeneblad
+   printf("WM_COMMAND message received\n");
+
+        switch (LOWORD(wParam))
+        {
+
+             case 120:
+            printf("1 button is clicked ");
+            Buf[Counter]='1';
+
+            break;
+
+
+             case 121:
+            printf("2 button is clicked ");
+            Buf[Counter]='2';
+            break;
+
+
+              case 122:
+            printf("3 button is clicked ");
+            Buf[Counter]='3';
+            break;
+
+
+             case 123:
+            printf("4 button is clicked ");
+            Buf[Counter]='4';
+            break;
+
+
+              case 124:
+            printf("5 button is clicked ");
+            Buf[Counter]='5';
+            break;
+
+
+               case 125:
+            printf("6 button is clicked ");
+            Buf[Counter]='6';
+            break;
+
+             case 126:
+            printf("7 button is clicked ");
+           Buf[Counter]='7';
+            break;
+
+              case 127:
+            printf("8 button is clicked ");
+           Buf[Counter]='8';
+            break;
+
+             case 128:
+            printf("9 button is clicked ");
+           Buf[Counter]='9';
+            break;
+
+              case 129:
+            printf("0 button is clicked ");
+           Buf[Counter]='0';
+            break;
+
+              case 130:
+            printf(". button is clicked ");
+            Buf[Counter]='.';
+            break;
+
+              case 131:
+            printf("C button is clicked ");
+            Buf[Counter]='C';
+            break;
+
+               case 132:
+            k = 1;
+            printf("+ button is clicked\n");
+            Buf[Counter]='+';
+            Operand1(Buf,Counter);
+
+      break;
+
+             case 133:
+                 k=2;
+            printf("- button is clicked ");
+            Buf[Counter]='-';
+               Operand1(Buf,Counter);
+            break;
+
+              case 134:
+                  k=3;
+            printf("x button is clicked ");
+            Buf[Counter]='x';
+               Operand1(Buf,Counter);
+            break;
+
+             case 135:
+                 k=4;
+            printf("/ button is clicked ");
+
+            Buf[Counter]='/';
+               Operand1(Buf,Counter);
+            break;
+
+              case 136:
+            printf("= button is clicked ");
+            Buf[Counter]='=';
+           Operand2(Buf,tempCount,Counter);
+            break;
+
+              case 137:
+            printf("% button is clicked ");
+            Buf[Counter]='%';
+            break;
+
+              case 138:
+            printf("hex button is clicked ");
+            break;
+
+            case 139:
+            printf("bin button is clicked ");
+            break;
+//-------------------------------------------------------------------------------------------------------------
+
+        }
+
+
+        printf("\nCounter = %d\n",Counter);
+
+        printf("Buffer char 1:%c\n",Buf[0]);
+        printf("Buffer char 2:%c\n",Buf[1]);
+        printf("Buffer char 3:%c\n",Buf[2]);
+        printf("Buffer char 4:%c\n",Buf[3]);
+        printf("Buffer char 5:%c\n",Buf[4]);
+
+        printf("Buffer String : %s\n",Buf);
+
+
+//---------------------------------------------------------------------------
+
+                if(EqualClicked==1)
+
+                 {
+                    if (k==1 || k==2 || k==3 || k==4)
+                    {
+                    Counter++;
+                    Buf[Counter]='\0';
+                        switch(k)
+                        {
+                        case Addition:
+                            Add_Res = Add(Op1, Op2);
+                            printf("Addition Result: %d\n", Add_Res);
+                            break;
+                        case Subtraction:
+                            Sub_Res = Sub(Op1, Op2);
+                            printf("Subtraction Result: %d\n", Sub_Res);
+                            break;
+                        case Multiplication:
+                             Mul_Res = Mul(Op1, Op2);
+                            printf("Multiplication Result: %d\n", Mul_Res);
+                            break;
+                        case Division:
+                            Div(Op1,Op2);
+                            break;
+                        }
+                        memset(Buf,0,sz);
+                    }
+
+                }
+                else
+                    {
+                        if(Var2>1)
+                        {
+                             Counter++;
+                             Buf[Counter]='\0';
+                        }
+                    }
+//---------------------------------------------------------------------------
+        return 0;
+        break;
+    }
+    return 0;
+
+//-------------------------------------------------------------------------------------------------------------
+    default:
+        return DefWindowProc(hWnd, Message, wParam, lParam);
+    }
+}
